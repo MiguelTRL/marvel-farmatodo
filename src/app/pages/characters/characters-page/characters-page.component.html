@@ -1,0 +1,94 @@
+<nav class="navbar navbar-light bg-light">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4 ">
+        <a class="navbar-brand" href="#">
+          <img src="assets/marvel.svg" class="logo-size">
+        </a>
+      </div>
+      <div class="col-md-4  justify-content-center">
+        <form class="form-inline ">
+          <input [ngModelOptions]="{standalone: true}" [(ngModel)]="filterCharacter" class="form-control col-md-12"
+            type="search" placeholder="Search character ..." aria-label="Search">
+        </form>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid ">
+  <div class="row">
+    <div class="col-md-9 characters-background p-3">
+      <div class="col-md-12 mb-2">
+        <div class="row">
+          <div class="col-md-1">
+            <img src="assets/ICONS/btn-favourites-primary.png" alt="">
+          </div>
+          <div class="col-md-11 ">
+            <h4>Characters</h4>
+          </div>
+        </div>
+      </div>
+      <div class="container ">
+        <div class="row">
+          <div *ngFor="let character of characters  | filterCharacter : filterCharacter | paginator :page_size: page "
+            class="col-md-6 card p-3">
+            <div class="row ">
+              <div class="col-md-6">
+                <a class="img-thumbnail">
+                  <img class="img-thumbnail rounded-circle image-cover" alt="Responsive image"
+                    src="{{character.thumbnail.path}}.{{character.thumbnail.extension}}">
+                </a>
+              </div>
+              <div class="col-md-6">
+                <div class="col-md-12 m-3">
+                  <h5 class="card-title">{{character.name}}</h5>
+                </div>
+                <div class="col-md-12">
+                  <p class="card-text">{{character.description}}</p>
+                </div>
+                <div class="col-md-12 mt-3">
+                  <button type="button" (click)="showMore(character)" class="btn btn-marvel">View more</button>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                Related Commid
+              </div>
+              <div [ngClass]="{'mt-4': i == 0 }" class="col-md-6 mt-2"  *ngFor="let commic of character.series.items;let i = index">
+                {{commic.name}}
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <mat-paginator (page)="paginator($event) " [length]="characters.length" [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 25, 100]">
+      </mat-paginator>
+    </div>
+    <div class="col-md-3">
+      <div class="col-md-12 mt-5">
+        <div class="row">
+          <div class="col-md-2">
+            <img src="assets/ICONS/btn-favourites-primary.png" alt="">
+          </div>
+          <div class="col-md-10 text-center justify-content-center">
+            <h4>My favourites</h4>
+          </div>
+        </div>
+        <div class="row justify-content-center text-center mt-2" *ngFor="let commic of favourites; let i = index">
+          <div class="col-md-12 ">
+            <img (click)="deleteCommic(i)" style="cursor: pointer;" class="position-absolute fixed-right"
+              src="assets/ICONS/btn-delete.png" alt="">
+            <img class="img-thumbnail commic-cover" alt="Responsive image"
+              src="{{commic.thumbnail.path}}.{{commic.thumbnail.extension}}">
+          </div>
+          <div class="col-md-12 card-title mt-2 ">
+            <h5 class="card-title"> {{commic.title}}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

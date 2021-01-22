@@ -1,0 +1,39 @@
+.image-cover {
+    height: 280px;
+    width: 280px;
+    line-height: 115px;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    cursor: pointer;
+}
+
+
+.added-favourites{
+
+    background: #421005;
+    color: red;
+    cursor: pointer;
+    font-weight: bold;
+
+}
+
+span{
+    /* background: black; */
+    color: black !important;
+}
+
+.carousel-control-next, .carousel-control-prev{
+
+    color: black !important;
+}
+
+.add-car {
+    background:#CFCCCB;
+    color: red;
+    cursor: pointer;
+    font-weight: bold;
+}

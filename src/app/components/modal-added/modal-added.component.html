@@ -1,0 +1,49 @@
+<div class="container-fluid">
+  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item" [ngClass]="{'active': i == 0}" *ngFor="let commic of commics ;let i = index">
+        <div class="container">
+          <div class="col-md-12 p-5">
+            <div class="row">
+              <div class="col-md-6">
+                <img class="img-thumbnail image-cover" alt="Responsive image"
+                  src="{{commic.thumbnail.path}}.{{commic.thumbnail.extension}}">
+              </div>
+              <div class="col-md-6">
+                <div class="col-md-12 card-title ">
+                  <h5 class="card-title"> {{commic.title}}</h5>
+                </div>
+                <div class="col-md-12 mt-3">
+                  {{commic.description}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid">
+          <div class="row">
+            <div (click)="addFavourites(commic)" class="col-md-6  align-self-center text-center justify-content-center added-favourites p-3 ">
+              <img src="assets/ICONS/btn-favourites-primary.png" class="pr-3" alt="">ADEDD TO FAVOURITES
+            </div>
+            <div (click)="buy()"class="col-md-6  align-self-center text-center justify-content-center p-3 add-car">
+              <img src="assets/ICONS/shopping-cart-primary.png" class="pr-3" alt="">BUY FOR {{commic.prices[0].price}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+          class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
+          <path
+            d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1z" />
+        </svg>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+          class="bi bi-arrow-right-square-fill" viewBox="0 0 16 16">
+          <path
+            d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v12zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1z" />
+        </svg>
+      </a>
+    </div>
+  </div>
