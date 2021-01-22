@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MarvelApiService } from '../../../services/marvel-api.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalAddedComponent } from '../../../components/modal-added/modal-added.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-characters-page',
@@ -46,8 +47,24 @@ export class CharactersPageComponent implements OnInit {
 
       modalRef.result.then(res => {
         console.log("recibimos el favorito", res);
-        this.favourites.push(res.data);
-        localStorage.setItem('favourites', JSON.stringify(this.favourites))
+        var validate = false;
+        this.favourites.map(commic => {
+          console.log("comic")
+
+          if (commic.id == res.data.id) {
+            validate = true;
+          }
+        })
+
+        if (validate) {
+          Swal.fire('Este commic ya esta en favoritos', '', 'error')
+
+        } else {
+          Swal.fire('commic agregado', '', 'success')
+          this.favourites.push(res.data);
+          localStorage.setItem('favourites', JSON.stringify(this.favourites))
+        }
+
 
 
 
@@ -63,8 +80,8 @@ export class CharactersPageComponent implements OnInit {
   }
 
 
-  deleteCommic(i){
-    this.favourites.splice(i,1);
+  deleteCommic(i) {
+    this.favourites.splice(i, 1);
     localStorage.setItem('favourites', JSON.stringify(this.favourites))
 
   }
