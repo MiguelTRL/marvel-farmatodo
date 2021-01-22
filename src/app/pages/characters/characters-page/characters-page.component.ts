@@ -14,12 +14,12 @@ export class CharactersPageComponent implements OnInit {
   constructor(private _marvelApi: MarvelApiService,
     private modalService: NgbModal,
   ) { }
-  characters = [];
+  characters = []; 
   favourites = [];
   filterCharacter = '';
   page_size = 10;
   page: any;
-  name = '';
+  
   ngOnInit(): void {
     this.getCharacters();
 
