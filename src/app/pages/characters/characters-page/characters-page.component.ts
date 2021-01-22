@@ -23,15 +23,71 @@ export class CharactersPageComponent implements OnInit {
   ngOnInit(): void {
     this.getCharacters();
 
-    if (localStorage.getItem('favourites')) {
-      this.favourites = JSON.parse(localStorage.getItem('favourites'));
 
-    }
   }
 
   getCharacters() {
     this._marvelApi.getCharacters().then(res => {
       this.characters = res.data.data.results;
+
+      if (localStorage.getItem('favourites')) {
+        this.favourites = JSON.parse(localStorage.getItem('favourites'));
+      }
+      if (this.favourites.length == 0) {
+
+        var first = Math.floor(Math.random() * (this.characters.length - 1) + 1);
+        var second = Math.floor(Math.random() * (this.characters.length - 1) + 1);
+        var third = Math.floor(Math.random() * (this.characters.length - 1) + 1);
+        console.log("first", first)
+        this._marvelApi.getComicByCharcterId(this.characters[first].id).then(res => {
+          if (res.data.data.results[0] && res.data.data.results[0].thumbnail) {
+            this.favourites.push(res.data.data.results[0])
+          } else {
+            const other = Math.floor(Math.random() * (this.characters.length - 1) + 1);
+            this._marvelApi.getComicByCharcterId(this.characters[other].id).then(res => {
+              if (res.data.data.results[0] && res.data.data.results[0].thumbnail) {
+                this.favourites.push(res.data.data.results[0])
+              }
+            })
+          }
+        })
+
+        this._marvelApi.getComicByCharcterId(this.characters[second].id).then(res => {
+          if (res.data.data.results[0] && res.data.data.results[0].thumbnail) {
+            this.favourites.push(res.data.data.results[0])
+          } else {
+            const other = Math.floor(Math.random() * (this.characters.length - 1) + 1);
+            this._marvelApi.getComicByCharcterId(this.characters[other].id).then(res => {
+              if (res.data.data.results[0] && res.data.data.results[0].thumbnail) {
+                this.favourites.push(res.data.data.results[0])
+              }
+            })
+          }
+        })
+
+        this._marvelApi.getComicByCharcterId(this.characters[third].id).then(res => {
+          if (res.data.data.results[0] && res.data.data.results[0].thumbnail) {
+            this.favourites.push(res.data.data.results[0])
+          } else {
+            const other = Math.floor(Math.random() * (this.characters.length - 1) + 1);
+
+            this._marvelApi.getComicByCharcterId(this.characters[other].id).then(res => {
+              if (res.data.data.results[0] && res.data.data.results[0].thumbnail) {
+                this.favourites.push(res.data.data.results[0])
+              }
+            })
+
+          }
+        })
+        setTimeout(() => {
+          localStorage.setItem('favourites', JSON.stringify(this.favourites))
+          Swal.fire('Te sugerimos commis en tus favoritos', '', 'info')
+        }, 300);
+
+      }
+
+
+
     })
   }
 
